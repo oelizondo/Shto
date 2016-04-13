@@ -1,33 +1,67 @@
 class Shto {
   constructor(trigger, action, domElements) {
-    this.trigger     = trigger
     this.action      = action
+    this.trigger     = trigger
     this.domElements = domElements
   }
 
   listen () {
-    if (typeof window.sessionStorage == 'undefined' || typeof window.localStorage == 'undefined') {
-      throw 'sessionStorage is not enabled / supported'
-    }
-    else {
-      const trigger = document.findElementById(this.trigger)
-      trigger.addEventListener(this.action, captureData)
+    if (typeof window.sessionStorage != "undefined") {
+
+      const trigger = document.getElementById(this.trigger)
+      trigger.addEventListener(this.action, () => { this.captureData(this.domElements) })
+      this.viewChangeListener();
+
+    } else {
+
+      throw "sessionStorage is not enabled / supported."
 
     }
   }
 
   addValue(element) {
-    if (typeof element == 'string') this.domElements.push(element)
+    if (typeof element == "string") this.domElements.push(element)
     return true;
   }
 
-  captureData() {
-    this.domElements.forEach(function(domElement){
-      window.sessionStorage.setItem(domElement, document.getElementById(domElement).value)
+  captureData(domElements) {
+    domElements.forEach(function(domElement){
+      if (domElement.value != "undefined") {
+
+        window.sessionStorage.setItem(domElement, document.getElementById(domElement).value)
+
+      } else {
+
+        throw "This element doesn't exist."
+
+      }
     })
   }
+
+  returnData(domElements) {
+    domElements.forEach((domElement) => {
+      if (domElement.value != "undefined") {
+
+        document.getElementById(domElement.value(window.sessionStorage.getItem(domElement)))
+
+      } else {
+
+        throw "This element doesn't exist."
+
+      }
+    })
+  }
+
+  viewChangeListener() {
+    if (document.getElementById('form').length) {
+      this.returnData(this.domElements)
+    }
+  }
+
+
 
 
 }
 
-const sess = new Shto('save', 'click', ['button1', 'button2', 'button3']);
+const sess = new Shto('save', 'click', 'form', ['button1'])
+sess.listen()
