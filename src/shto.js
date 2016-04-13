@@ -13,6 +13,3 @@ class Shto {
     }
   }
 }
-
-const storage = new Shto('hello', 'world')
-storage.listen();

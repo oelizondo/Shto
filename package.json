@@ -1,13 +1,13 @@
 {
   "name": "shto",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/shto.js",
   "scripts": {
     "build": "babel --watch src -d lib"
   },
   "keywords": [],
-  "author": "",
+  "author": "oelizondo",
   "license": "ISC",
   "devDependencies": {
     "babel": "^6.5.2",
