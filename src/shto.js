@@ -1,7 +1,7 @@
 class Shto {
-  constructor(trigger, action, domElements) {
-    this.action      = action
+  constructor(action, trigger, domElements) {
     this.trigger     = trigger
+    this.action      = action
     this.domElements = domElements
   }
 
@@ -11,7 +11,7 @@ class Shto {
       const trigger = document.getElementById(this.trigger)
       trigger.addEventListener(this.action, () => { this.captureData(this.domElements) })
 
-    } else if (typeof window.sessionStorage != "undefined"){
+    } else if (typeof window.sessionStorage != "undefined") {
 
       throw "sessionStorage is not enabled / supported."
 
@@ -64,10 +64,6 @@ class Shto {
         window.sessionStorage.setItem(domElement, formField.value)
       })
     })
-  }
-
-  resetSessionStorage() {
-    window.sessionStorage.clear()
   }
 
 }
