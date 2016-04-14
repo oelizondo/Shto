@@ -10,13 +10,14 @@ class Shto {
 
       const trigger = document.getElementById(this.trigger)
       trigger.addEventListener(this.action, () => { this.captureData(this.domElements) })
-      this.viewChangeListener();
 
-    } else {
+    } else if (typeof window.sessionStorage != "undefined"){
 
       throw "sessionStorage is not enabled / supported."
 
     }
+      
+    window.onload = this.returnData(this.domElements)
   }
 
   addValue(element) {
@@ -25,7 +26,7 @@ class Shto {
   }
 
   captureData(domElements) {
-    domElements.forEach(function(domElement){
+    domElements.forEach((domElement) => {
       if (domElement.value != "undefined") {
 
         window.sessionStorage.setItem(domElement, document.getElementById(domElement).value)
@@ -42,7 +43,8 @@ class Shto {
     domElements.forEach((domElement) => {
       if (domElement.value != "undefined") {
 
-        document.getElementById(domElement.value(window.sessionStorage.getItem(domElement)))
+        const formField = document.getElementById(domElement)
+        formField.value = window.sessionStorage.getItem(domElement)
 
       } else {
 
@@ -52,16 +54,19 @@ class Shto {
     })
   }
 
-  viewChangeListener() {
-    if (document.getElementById('form').length) {
-      this.returnData(this.domElements)
-    }
+  resetForm(resetElement) {
+    let resetButton = document.getElementById(resetElement)
+
+    resetButton.addEventListener(this.action, () => {
+      this.domElements.forEach((domElement) => {
+        const formField = document.getElementById(domElement)
+        formField.value = ""
+      })
+    })
   }
 
-
-
+  resetSessionStorage() {
+    window.sessionStorage.clear()
+  }
 
 }
-
-const sess = new Shto('save', 'click', 'form', ['button1'])
-sess.listen()

@@ -10,4 +10,4 @@ local/session Storage Wrapper and useful methods.
   viewStoreage.listen()
 ```
 
-Declare a new ```Shto``` object with the element that will save the form elements, and an action (can be ```scroll```, ```click```, etc).
+Declare a new ```Shto``` object with the element that will save the form elements, and an action (it can be ```scroll```, ```click```, etc).
