@@ -61,6 +61,7 @@ class Shto {
       this.domElements.forEach((domElement) => {
         const formField = document.getElementById(domElement)
         formField.value = ""
+        window.sessionStorage.setItem(domElement, formField.value)
       })
     })
   }
