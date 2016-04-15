@@ -11,7 +11,7 @@ class Shto {
       const trigger = document.getElementById(this.trigger)
       trigger.addEventListener(this.action, () => { this.captureData(this.domElements) })
 
-    } else if (typeof window.sessionStorage != "undefined") {
+    } else {
 
       throw "sessionStorage is not enabled / supported."
 
@@ -21,21 +21,12 @@ class Shto {
   }
 
   addValue(element) {
-    if (typeof element == "string") this.domElements.push(element)
-    return true;
+    typeof element == "string" ? this.domElements.push(element) : throw 'Not a valid element.'
   }
 
   captureData(domElements) {
     domElements.forEach((domElement) => {
-      if (domElement.value != "undefined") {
-
-        window.sessionStorage.setItem(domElement, document.getElementById(domElement).value)
-
-      } else {
-
-        throw "This element doesn't exist."
-
-      }
+      domElement.value != "undefined" ? window.sessionStorage.setItem(domElement, document.getElementById(domElement).value) : throw "This element doesn't exist."
     })
   }
 
