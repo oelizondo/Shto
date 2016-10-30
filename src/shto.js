@@ -5,7 +5,7 @@ class Shto {
     this.domElements = domElements
   }
 
-  listen () {
+  listen() {
     if (typeof window.sessionStorage != "undefined") {
       const trigger = document.getElementById(this.trigger)
       trigger.addEventListener(this.action, () => { this.captureData(this.domElements) })
@@ -18,17 +18,17 @@ class Shto {
   addValue(element) {
     if (typeof element == "string") {
       this.domElements.push(element)
-    } else { 
+    } else {
       throw 'Not a valid element.'
     }
   }
 
   captureData(domElements) {
     domElements.forEach((domElement) => {
-      if (domElement.value != "undefined") { 
+      if (domElement.value != "undefined") {
         window.sessionStorage.setItem(domElement, document.getElementById(domElement).value)
-      } else { 
-        throw "This element doesn't exist." 
+      } else {
+        throw "This element doesn't exist."
       }
     })
   }
